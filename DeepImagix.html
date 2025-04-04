@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepImagix AI - Generate Image</title>
+<style>
+      :root {
+        --primary: #8b5cf6;
+        --secondary: #c4b5fd;
+        --dark: #1f2937;
+        --light: #f9fafb;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px 20px;
+      }
+      header {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        color: var(--primary);
+        font-size: 24px;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: var(--primary);
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 600px;
+        padding: 40px;
+        text-align: center;
+      }
+      h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 28px;
+      }
+      .tagline {
+        color: var(--dark);
+        margin-bottom: 25px;
+        opacity: 0.7;
+      }
+      .input-group {
+        margin-bottom: 20px;
+      }
+      input, select {
+        width: 100%;
+        padding: 12px 20px;
+        border: 2px solid #e5e7eb;
+        border-radius: 25px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+      }
+      input:focus, select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+      }
+      select option[disabled] {
+        color: #9ca3af;
+      }
+      .generate-btn-container {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+      button:hover:not(:disabled) {
+        background: #7c3aed;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+      }
+      button:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+      }
+      .progress-bar {
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        height: 4px;
+        background: var(--success);
+        border-radius: 2px;
+        width: 0;
+        transition: width 0.3s ease;
+      }
+      .status {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-weight: 500;
+        font-size: 14px;
+        display: none;
+      }
+      .status.processing {
+        background: #fefce8;
+        color: #d97706;
+        display: block;
+      }
+      .status.success {
+        background: #ecfdf5;
+        color: var(--success);
+        display: block;
+      }
+      .status.error {
+        background: #fef2f2;
+        color: var(--danger);
+        display: block;
+      }
+      .result-container {
+        margin-top: 25px;
+        display: none;
+      }
+      .generated-image {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 8px;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      }
+      .popup {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        animation: popupFadeIn 0.3s ease;
+      }
+      @keyframes popupFadeIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      .popup h3 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .popup p {
+        color: var(--dark);
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .popup-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .popup-buttons button {
+        width: auto;
+        padding: 10px 30px;
+      }
+      .popup-buttons .agree {
+        background: var(--primary);
+      }
+      .popup-buttons .disagree {
+        background: var(--danger);
+      }
+</style>
+  </head>
+  <body>
+    <header>
+      <h1>✨ DeepImagix AI</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="DeepImagix.html">Try it</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
+      <h2>Generate Your Image</h2>
+      <p class="tagline">Create magical visuals with artificial intelligence</p>
+
+      <div class="input-group">
+        <input type="text" id="prompt" placeholder="Describe your imagination...">
+      </div>
+
+      <div class="input-group">
+        <select id="model">
+          <option value="stabilityai/stable-diffusion-2">Stable Diffusion 2 (Default)</option>
+          <option value="stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
+          <option value="SG161222/Realistic_Vision_V6.0_B1_noVAE">Realistic Vision V6</option>
+          <option value="runwayml/stable-diffusion-v1-5">Stable Diffusion 1.5</option>
+          <option value="stabilityai/stable-diffusion-xl-base-1.0" disabled>Ultra HD Realism ★ Premium</option>
+          <option value="SG161222/Realistic_Vision_V6.0_B1_noVAE" disabled>Hyper Photo AI ★ Premium</option>
+        </select>
+      </div>
+
+      <div class="generate-btn-container">
+        <button id="generateBtn" onclick="showTermsPopup()">Generate Image</button>
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div class="result-container" id="resultContainer">
+        <h3>Your Creation</h3>
+        <img id="generatedImage" class="generated-image" src="" alt="AI Generated Image">
+        <button onclick="viewFullImage()">View Full Image</button>
+      </div>
+    </div>
+
+    <div class="popup-overlay" id="termsPopup">
+      <div class="popup">
+        <h3>🤖 Terms of Use</h3>
+        <p>Welcome to DeepImagix AI! By using our image generation service, you agree to our Terms of Use. We utilize advanced AI to create unique images based on your prompts. Please note that generated content should not be used for illegal purposes, and we reserve the right to monitor usage to ensure compliance with our policies.</p>
+        <div class="popup-buttons">
+          <button class="agree" onclick="agreeToTerms()">Agree</button>
+          <button class="disagree" onclick="disagreeToTerms()">Disagree</button>
+        </div>
+      </div>
+    </div>
+
+<script>
+      let progress = 0;
+      let termsAgreed = false;
+
+      function showTermsPopup() {
+        if (termsAgreed) {
+          generateImage();
+        } else {
+          document.getElementById('termsPopup').style.display = 'flex';
+        }
+      }
+
+      function agreeToTerms() {
+        termsAgreed = true;
+        document.getElementById('termsPopup').style.display = 'none';
+        generateImage();
+      }
+
+      function disagreeToTerms() {
+        document.getElementById('termsPopup').style.display = 'none';
+        showStatus('You must agree to the Terms of Use to generate images.', 'error');
+      }
+
+      async function generateImage() {
+        const prompt = document.getElementById('prompt').value.trim();
+        const model = document.getElementById('model').value;
+        const generateBtn = document.getElementById('generateBtn');
+        const progressBar = document.getElementById('progressBar');
+
+        if (!prompt) {
+          showStatus('Please enter a prompt!', 'error');
+          return;
+        }
+
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = '<span class="loading"></span> Generating...';
+        showStatus('✨ DeepImagixing...', 'processing');
+        document.getElementById('resultContainer').style.display = 'none';
+        progressBar.style.width = '0%';
+        progress = 0;
+
+        try {
+          const url = `https://api-inference.huggingface.co/models/${model}`;
+          
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer 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', // Replace with your actual API key
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+              inputs: prompt,
+              parameters: {
+                num_inference_steps: 50, // Higher steps for better quality
+                guidance_scale: 7.5     // Adjust for realism
+              }
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed with status ${response.status}: ${await response.text()}`);
+          }
+
+          const blob = await response.blob();
+          const imageUrl = URL.createObjectURL(blob);
+
+          const progressInterval = setInterval(() => {
+            progress += Math.random() * 10;
+            if (progress > 90) progress = 90;
+            progressBar.style.width = `${progress}%`;
+          }, 500);
+
+          setTimeout(() => {
+            clearInterval(progressInterval);
+            progressBar.style.width = '100%';
+            const img = document.getElementById('generatedImage');
+            img.src = imageUrl;
+            document.getElementById('resultContainer').style.display = 'block';
+            showStatus('Image generated successfully!', 'success');
+            resetUI();
+          }, 3000);
+
+        } catch (error) {
+          console.error('Fetch error:', error.message);
+          showStatus(`Error: ${error.message}`, 'error');
+          resetUI();
+        }
+      }
+
+      function showStatus(message, type) {
+        const statusDiv = document.getElementById('status');
+        statusDiv.innerHTML = type === 'processing' 
+          ? `<span class="loading"></span> ${message}` 
+          : message;
+        statusDiv.className = `status ${type}`;
+      }
+
+      function resetUI() {
+        const generateBtn = document.getElementById('generateBtn');
+        generateBtn.disabled = false;
+        generateBtn.innerHTML = 'Generate Image';
+        document.getElementById('progressBar').style.width = '0%';
+      }
+
+      function viewFullImage() {
+        const imageUrl = document.getElementById('generatedImage').src;
+        if (!imageUrl || imageUrl === '') {
+          showStatus('No image to view!', 'error');
+          return;
+        }
+        window.open(imageUrl, '_blank');
+      }
+</script>
+  </body>
+</html>
