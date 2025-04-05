@@ -162,7 +162,7 @@
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="database/DeepImagix-sign.html">Sign Up</a></li>
+          <li><a href="DeepImagix-sign.html">Sign Up</a></li>
         </ul>
       </nav>
     </header>
@@ -236,7 +236,7 @@
           localStorage.setItem('token', token);
           showStatus('Login successful! Redirecting...', 'success');
           setTimeout(() => {
-            window.location.href = '../DeepImagix.html';
+            window.location.href = 'DeepImagix.html';
           }, 2000);
         } catch (error) {
           showStatus(`Error: ${error.message}`, 'error');
