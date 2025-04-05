@@ -517,7 +517,7 @@
 
       const initialData = await initialResponse.json();
       if (!initialData.task_url) {
-        throw new Error('No task_url found in initial response');
+        throw new Error('An error occured, please try again');
       }
 
       const taskUrl = initialData.task_url;
@@ -562,7 +562,7 @@
       }, 10000); // 10-second delay
 
     } catch (error) {
-      console.error('Initial fetch error:', error.message);
+      console.error('An error occured, please try again');
       showStatus(`Error: ${error.message}`, 'error');
       clearInterval(progressInterval);
       resetUI();
