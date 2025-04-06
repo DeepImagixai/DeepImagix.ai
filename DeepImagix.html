@@ -570,7 +570,9 @@
 </script>
 
 <script>
-  
+  if (window.location.pathname.endsWith('.html')) {
+       window.location.replace(window.location.pathname.replace('.html', ''));
+   }
   document.addEventListener('DOMContentLoaded', function() {
     const display = document.getElementById('selector-display');
     const options = document.getElementById('selector-options');
