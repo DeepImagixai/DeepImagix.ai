@@ -11,6 +11,17 @@
             --dark: #1f2937;
             --light: #f9fafb;
             --accent: #ff6b6b;
+            
+        /* Theme 1 (Dark Blue) */  
+        --theme1-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);  
+        --theme1-header-bg: rgba(255, 255, 255, 0.95);  
+        --theme1-text: var(--dark);  
+
+        /* Theme 2 (Cyberpunk) */  
+        --theme2-bg: #000000;  
+        --theme2-header-bg: #222;  
+        --theme2-text: #8b5cf6;  
+        --theme2-primary: #00ff00;  
         }
 
         * {
@@ -20,11 +31,15 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            min-height: 100vh;
-            color: var(--light);
-        }
+        body {  
+        background: var(--theme1-bg); /* Default to Dark Blue */  
+        min-height: 100vh;  
+        display: flex;  
+        justify-content: center;  
+        align-items: center;  
+        padding: 80px 20px 20px;  
+        transition: background 0.5s ease; /* Smooth transition for theme changes */  
+      }  
 
         /* Notification Banner Styles */
         .notification-banner {
@@ -91,24 +106,26 @@
             }
         }
 
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        header {  
+        background: var(--theme1-header-bg); /* Default to Dark Blue */  
+        padding: 20px;  
+        position: fixed;  
+        top: 0;  
+        left: 0;  
+        right: 0;  
+        z-index: 1000;  
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        transition: background 0.5s ease, color 0.5s ease;  
+      }  
 
-        header h1 {
-            color: var(--primary);
-            font-size: 24px;
-        }
+        header h1 {  
+        color: var(--primary);  
+        font-size: 24px;  
+        animation: fadeIn 1s ease-in-out; /* Fade-in animation */  
+      }  
         
         .signup-btn {
         background: linear-gradient(135deg, var(--primary), #7c3aed);
@@ -141,16 +158,16 @@
             gap: 20px;
         }
 
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
+        nav a {  
+        text-decoration: none;  
+        color: var(--theme1-text); /* Default to Dark Blue */  
+        font-weight: 500;  
+        transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */  
+      }  
+      nav a:hover {  
+        color: var(--primary);  
+        transform: translateY(-2px); /* Slight lift on hover */  
+      }  
 
         .main-content {
             padding: 140px 40px 100px;
@@ -189,6 +206,7 @@
         .model-card {
             background: rgba(255, 255, 255, 0.15);
             padding: 15px;
+            color: var(--theme2-text);  
             border-radius: 8px;
             text-align: center;
             transition: transform 0.3s ease;
@@ -215,10 +233,58 @@
         .features li, .developers p {
             margin: 10px 0;
         }
+        
+        /* Keyframes for Animations */  
+      @keyframes fadeIn {  
+        from {  
+          opacity: 0;  
+          transform: translateY(-20px);  
+        }  
+        to {  
+          opacity: 1;  
+          transform: translateY(0);  
+        }  
+      }  
+
+      /* Theme Switcher (Example) */  
+      #theme-switcher {  
+        position: fixed;  
+        bottom: 20px;  
+        right: 20px;  
+        display: flex;  
+        gap: 10px;  
+      }  
+      .theme-button {  
+        padding: 10px 15px;  
+        border: none;  
+        cursor: pointer;  
+        border-radius: 5px;  
+        color: white;  
+        font-weight: bold;  
+        transition: transform 0.2s ease;  
+      }  
+      .theme-button:hover {  
+        transform: scale(1.1);  
+      }  
+
+      .theme-button.dark-blue {  
+        background-color: #312e81;  
+      }  
+
+       .theme-button.cyberpunk {  
+          background-color: #00ff00;  
+          color: black;  
+       }  
 </style>
   </head>
   <body>
     <header>
+      
+      <div id="theme-switcher">  
+        <button class="theme-button dark-blue" onclick="setTheme('theme1')">Dark Blue</button>  
+        <button class="theme-button cyberpunk" onclick="setTheme('theme2')">Cyberpunk</button>  
+      </div>  
+      
       <h1>✨DeepImagix AI</h1>
       <nav>
         <ul>
@@ -227,6 +293,7 @@
         </ul>
       </nav>
     </header>
+    
 
     <!-- Notification Banner -->
     <div class="notification-banner" id="notification" onclick="window.location.href='premium.html'">
@@ -236,6 +303,7 @@
 
     <div class="main-content">
       <h2>Welcome to DeepImagix AI</h2>
+      <div id="username-display"></div>
       <p>DeepImagix AI is made in South Africa</p>
       <p>DeepImagix AI is a cutting-edge artificial intelligence-powered image generator designed to bring your imagination to life. Whether you're envisioning anime-style portraits, 3D characters, or fantasy artwork, our platform delivers high-quality visuals with ease and speed.</p>
       <p>Unlock the power of artificial intelligence to create stunning, unique images from your imagination. Sign up today to start generating your own magical visuals!</p>
@@ -244,28 +312,143 @@
       <div class="features">
         <h3>Features</h3>
         <ul>
-          <li><div class="model-card">Stable Diffusion XL</div></li>
-          <li><div class="model-card">Realistic Vision V6</div></li>
-          <li><div class="model-card">DeepFace Pro</div></li>
-          <li><div class="model-card">3D Render AI</div></li>
-          <li><div class="model-card">Fantasy Portrait AI</div></li>
-          <li><div class="model-card">Anime Fusion Pro <span style="color: gold;">★ Premium</span></div></li>
-          <li><div class="model-card">Hyper Photo AI <span style="color: gold;">★ Premium</span></div></li>
-          <li><div class="model-card">Ultra HD Realism <span style="color: gold;">★ Premium</span></div></li>
-          <li><div class="model-card">DreamArt Creator <span style="color: gold;">★ Premium</span></div></li>
-          <li><div class="model-card">Futuristic Concept AI <span style="color: gold;">★ Premium</span></div></li>
+          <li><p><div class="model-card">Stable Diffusion XL</div></p></li>
+          <li><p><div class="model-card">Realistic Vision V6</div></p></li>
+          <li><p><div class="model-card">DeepFace Pro</div></p></li>
+          <li><p><div class="model-card">3D Render AI</div></p></li>
+          <li><p><div class="model-card">Fantasy Portrait AI</div></p></li>
+          <li><p><div class="model-card">Anime Fusion Pro <span style="color: gold;">★ Premium</span></div></p></li>
+          <li><p><div class="model-card">Hyper Photo AI <span style="color: gold;">★ Premium</span></div></p></li>
+          <li><p><div class="model-card">Ultra HD Realism <span style="color: gold;">★ Premium</span></div></p></li>
+          <li><p><div class="model-card">DreamArt Creator <span style="color: gold;">★ Premium</span></div></p></li>
+          <li><p><div class="model-card">Futuristic Concept AI <span style="color: gold;">★ Premium</span></div></p></li>
         </ul>
       </div>
 
       <div class="developers">
-        <h3>Developed By</h3>
+        <h3><p>Developed By</p></h3>
         <p>Toxic Dee Modder (Andile) - Innovative AI solutions and creative coding.</p>
         <p>Alysium Corporation Studios - Experts in digital art and technology.</p>
         <p>Toxic Gaming Mods Inc - Pioneers in gaming and visual enhancements.</p>
       </div>
     </div>
+    
+    <script>
+      
+      function setTheme(themeName) {  
+      if (themeName === 'theme1') {  
+    document.body.style.background = 'var(--theme1-bg)';  
+    document.querySelector('header').style.background = 'var(--theme1-header-bg)';  
+    document.querySelector('header').style.color = 'var(--theme1-text)';  
 
-<script>
+    const navLinks = document.querySelectorAll('nav a');  
+    navLinks.forEach(link => {  
+                link.style.color = 'var(--theme1-text)';  
+            });  
+        } else if (themeName === 'theme2') {  
+            document.body.style.background = 'var(--theme2-bg)';  
+            document.querySelector('header').style.background = 'var(--theme2-header-bg)';  
+            document.querySelector('header').style.color = 'var(--theme2-text)';  
+
+            const navLinks = document.querySelectorAll('nav a');  
+            navLinks.forEach(link => {  
+                link.style.color = 'var(--theme2-text)';  
+            });  
+        }  
+      }  
+      // Randomize notification theme on page load
+      const notification = document.getElementById('notification');
+      const randomTheme = Math.random() < 0.5 ? 'notification-theme-1' : 'notification-theme-2';
+      notification.classList.add(randomTheme);
+
+      // Ensure notification is visible on page refresh
+      notification.style.display = 'flex';
+      
+      </script>
+
+  <script type="module">
+  //Import Firebase SDKs
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
+    authDomain: "deepimagix-web.firebaseapp.com",
+    projectId: "deepimagix-web",
+    storageBucket: "deepimagix-web.appspot.com",
+    messagingSenderId: "84052335131",
+    appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
+    measurementId: "G-MNK3EXSCX6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  function showStatus(message, type) {
+    const statusDiv = document.getElementById('status');
+    statusDiv.textContent = message;
+    statusDiv.className = `status ${type}`;
+  }
+
+  // Function to display the username
+  async function displayUsername() {
+    const user = auth.currentUser;
+    
+    if (user) {
+      try {
+        // Get user document from Firestore
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const usernameElement = document.getElementById('username-display');
+          
+          if (usernameElement) {
+            usernameElement.textContent = `Welcome, ${userData.username}!`;
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+  }
+
+  // Check auth state when page loads
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, display their username
+      displayUsername();
+    } else {
+      // User is signed out
+      console.log("User is not signed in");
+    }
+  });
+  
+  function setTheme(themeName) {  
+        if (themeName === 'theme1') {  
+            document.body.style.background = 'var(--theme1-bg)';  
+            document.querySelector('header').style.background = 'var(--theme1-header-bg)';  
+            document.querySelector('header').style.color = 'var(--theme1-text)';  
+
+            const navLinks = document.querySelectorAll('nav a');  
+            navLinks.forEach(link => {  
+                link.style.color = 'var(--theme1-text)';  
+            });  
+        } else if (themeName === 'theme2') {  
+            document.body.style.background = 'var(--theme2-bg)';  
+            document.querySelector('header').style.background = 'var(--theme2-header-bg)';  
+            document.querySelector('header').style.color = 'var(--theme2-text)';  
+
+            const navLinks = document.querySelectorAll('nav a');  
+            navLinks.forEach(link => {  
+                link.style.color = 'var(--theme2-text)';  
+            });  
+        }  
+      }  
       // Randomize notification theme on page load
       const notification = document.getElementById('notification');
       const randomTheme = Math.random() < 0.5 ? 'notification-theme-1' : 'notification-theme-2';

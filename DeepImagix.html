@@ -1,19 +1,19 @@
-<!DOCTYPE html>  
-<html lang="en">  
-  <head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>DeepImagix AI - Generate Image</title>  
-<style>  
-      :root {  
-        --primary: #8b5cf6;  
-        --secondary: #c4b5fd;  
-        --dark: #1f2937;  
-        --light: #f9fafb;  
-        --success: #10b981;  
-        --warning: #f59e0b;  
-        --danger: #ef4444;  
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepImagix AI - Generate Image</title>
+<style>
+      :root {
+        --primary: #8b5cf6;
+        --secondary: #c4b5fd;
+        --dark: #1f2937;
+        --light: #f9fafb;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        
         /* Theme 1 (Dark Blue) */  
         --theme1-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);  
         --theme1-header-bg: rgba(255, 255, 255, 0.95);  
@@ -24,22 +24,22 @@
         --theme2-header-bg: #222;  
         --theme2-text: #ff77ff;  
         --theme2-primary: #00ff00;  
-      }  
-      * {  
-        box-sizing: border-box;  
-        margin: 0;  
-        padding: 0;  
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
-      }  
-      body {  
-        background: var(--theme1-bg); /* Default to Dark Blue */  
-        min-height: 100vh;  
-        display: flex;  
-        justify-content: center;  
-        align-items: center;  
-        padding: 80px 20px 20px;  
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background: var(--theme1-bg);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px 20px;
         transition: background 0.5s ease; /* Smooth transition for theme changes */  
-      }  
+      }
       header {  
         background: var(--theme1-header-bg); /* Default to Dark Blue */  
         padding: 20px;  
@@ -74,7 +74,180 @@
         color: var(--primary);  
         transform: translateY(-2px); /* Slight lift on hover */  
       }  
-
+      .container {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 600px;
+        padding: 40px;
+        text-align: center;
+      }
+      h2 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 28px;
+      }
+      .tagline {
+        color: var(--dark);
+        margin-bottom: 25px;
+        opacity: 0.7;
+      }
+      .input-group {
+        margin-bottom: 20px;
+      }
+      input, select {
+        width: 100%;
+        padding: 12px 20px;
+        border: 2px solid #e5e7eb;
+        border-radius: 25px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+      }
+      input:focus, select:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+      }
+      select option[disabled] {
+        color: #9ca3af;
+      }
+      .generate-btn-container {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        position: relative;
+      }
+      button:hover:not(:disabled) {
+        background: #7c3aed;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+      }
+      button:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+      }
+      .progress-bar {
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        height: 4px;
+        background: var(--success);
+        border-radius: 2px;
+        width: 0;
+        transition: width 0.1s linear;
+      }
+      .status {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-weight: 500;
+        font-size: 14px;
+        display: none;
+      }
+      .status.processing {
+        background: #fefce8;
+        color: #d97706;
+        display: block;
+      }
+      .status.success {
+        background: #ecfdf5;
+        color: var(--success);
+        display: block;
+      }
+      .status.error {
+        background: #fef2f2;
+        color: var(--danger);
+        display: block;
+      }
+      .result-container {
+        margin-top: 25px;
+        display: none;
+      }
+      .generated-image {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      .loading {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 8px;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      }
+      .popup {
+        background: #fff;
+        border-radius: 15px;
+        padding: 30px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        animation: popupFadeIn 0.3s ease;
+      }
+      @keyframes popupFadeIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      .popup h3 {
+        color: var(--primary);
+        margin-bottom: 15px;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .popup p {
+        color: var(--dark);
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+      .popup-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+      }
+      .popup-buttons button {
+        width: auto;
+        padding: 10px 30px;
+      }
+      .popup-buttons .agree {
+        background: var(--primary);
+      }
+      .popup-buttons .disagree {
+        background: var(--danger);
+      }
       /* Keyframes for Animations */  
       @keyframes fadeIn {  
         from {  
@@ -116,28 +289,339 @@
           background-color: #00ff00;  
           color: black;  
        }  
-    </style>  
-  </head>  
-  <body>  
-    <header>  
-      <h1>DeepImagix AI</h1>  
-      <nav>  
-        <ul>  
-          <li><a href="#">Home</a></li>  
-          <li><a href="#">Generate</a></li>  
-          <li><a href="#">About</a></li>  
-          <li><a href="#">Contact</a></li>  
-        </ul>  
-      </nav>  
-    </header>  
-
+       
+         .cyber-selector {
+    position: center;
+    max-width: 520px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .hidden-select {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+  }
+  
+  .selector-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .selector-display {
+    padding: 12px 16px;
+    background: rgba(20, 20, 40, 0.8);
+    border: 1px solid #4a4a8a;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e0e0ff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .selector-display:hover {
+    background: rgba(30, 30, 60, 0.9);
+    border-color: #6a6aaa;
+  }
+  
+  .selector-arrow {
+    transition: transform 0.3s ease;
+  }
+  
+  .selector-options {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: rgba(25, 25, 45, 0.95);
+    border: 1px solid #4a4a8a;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin: 0;
+    list-style: none;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 100;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .selector-options.active {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto;
+  }
+  
+  .selector-options li {
+    padding: 10px 20px;
+    color: #d0d0f0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .selector-options li:hover {
+    background: rgba(80, 80, 140, 0.3);
+    color: #ffffff;
+    padding-left: 25px;
+  }
+  
+  .selector-options li.active {
+    color: #7a9eff;
+    background: rgba(80, 80, 140, 0.2);
+  }
+  
+  .selector-options li.active::before {
+    content: "✓";
+    position: absolute;
+    left: 10px;
+  }
+  
+  .active-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #7a9eff, #ff66cc);
+    transition: width 0.3s ease;
+  }
+  
+  .selector-display:hover .active-border {
+    width: 100%;
+  }
+  
+  /* Scrollbar styling */
+  .selector-options::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .selector-options::-webkit-scrollbar-track {
+    background: rgba(20, 20, 40, 0.5);
+    border-radius: 3px;
+  }
+  
+  .selector-options::-webkit-scrollbar-thumb {
+    background: #4a4a8a;
+    border-radius: 3px;
+  }
+  
+  .selector-options::-webkit-scrollbar-thumb:hover {
+    background: #6a6aaa;
+  }
+  
+  /* Animation for selected item */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  
+  .selector-display:active {
+    animation: pulse 0.3s ease;
+  }
+</style>
+  </head>
+  <body>
+    <header>
+      <h1>✨ DeepImagix AI</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="DeepImagix.html">Try it</a></li>
+        </ul>
+      </nav>
+    </header>
+    
     <div id="theme-switcher">  
-        <button class="theme-button dark-blue" onclick="setTheme('theme1')">Dark Blue</button>  
-        <button class="theme-button cyberpunk" onclick="setTheme('theme2')">Cyberpunk</button>  
+      <button class="theme-button dark-blue" onclick="setTheme('theme1')">Dark Blue</button>  
+      <button class="theme-button cyberpunk" onclick="setTheme('theme2')">Cyberpunk</button>  
     </div>  
 
-    <script>  
-      function setTheme(themeName) {  
+    <div class="container">
+      <h2>Generate Your Image</h2>
+      <p class="tagline">Create magical visuals with artificial intelligence</p>
+
+      <div class="input-group">
+        <input type="text" id="prompt" placeholder="Describe your imagination...">
+      </div>
+
+      <div class="cyber-selector">
+        <div class="selector-container">
+          <div class="selector-display" id="selector-display">
+            <span class="current-selection">Cute Creature Generator</span>
+            <div class="selector-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <path fill="currentColor" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+              </svg>
+            </div>
+            <div class="active-border"></div>
+          </div>
+          <ul class="selector-options" id="selector-options">
+            <li data-value="cute-creature-generator" class="active">Cute Creature Generator (Default)</li>
+            <li data-value="fantasy-world-generator">Fantasy World Generator</li>
+            <li data-value="cyberpunk-generator">Cyberpunk Generator</li>
+            <li data-value="anime-portrait-generator">Anime Portrait Generator</li>
+            <li data-value="old-style-generator">Old Style Generator</li>
+            <li data-value="renaissance-painting-generator">Renaissance Painting Generator</li>
+            <li data-value="abstract-painting-generator">Abstract Painting Generator</li>
+            <li data-value="impressionism-painting-generator">Impressionism Painting Generator</li>
+            <li data-value="surreal-graphics-generator">Surreal Graphics Generator</li>
+            <li data-value="3d-objects-generator">3D Objects Generator</li>
+            <li data-value="kawaii-emoji-generator">Kawaii Emoji Generator</li>
+            <li data-value="film-collage-generator">Film Collage Generator</li>
+            <li data-value="zodiac-design-generator">Zodiac Design Generator</li>
+            <li data-value="robot-battle-generator">Robot Battle Generator</li>
+            <li data-value="playing-card-generator">Playing Card Generator</li>
+            <li data-value="gothic-architecture-generator">Gothic Architecture Generator</li>
+          </ul>
+        </div>
+        <select id="model" class="hidden-select">
+          <option value="cute-creature-generator">Cute Creature Generator (Default)</option>
+          <option value="fantasy-world-generator">Fantasy World Generator</option>
+          <option value="cyberpunk-generator">Cyberpunk Generator</option>
+          <option value="anime-portrait-generator">Anime Portrait Generator</option>
+          <option value="old-style-generator">Old Style Generator</option>
+          <option value="renaissance-painting-generator">Renaissance Painting Generator</option>
+          <option value="abstract-painting-generator">Abstract Painting Generator</option>
+          <option value="impressionism-painting-generator">Impressionism Painting Generator</option>
+          <option value="surreal-graphics-generator">Surreal Graphics Generator</option>
+          <option value="3d-objects-generator">3D Objects Generator</option>
+          <option value="kawaii-emoji-generator">Kawaii Emoji Generator</option>
+          <option value="film-collage-generator">Film Collage Generator</option>
+          <option value="zodiac-design-generator">Zodiac Design Generator</option>
+          <option value="robot-battle-generator">Robot Battle Generator</option>
+          <option value="playing-card-generator">Playing Card Generator</option>
+          <option value="gothic-architecture-generator">Gothic Architecture Generator</option>
+        </select>
+      </div>
+
+      <div class="generate-btn-container">
+        <button id="generateBtn" onclick="showTermsPopup()">Generate Image</button>
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div class="result-container" id="resultContainer">
+        <h3>Your Creation</h3>
+        <img id="generatedImage" class="generated-image" src="" alt="AI Generated Image">
+        <button onclick="viewFullImage()">View Full Image</button>
+      </div>
+    </div>
+
+    <div class="popup-overlay" id="termsPopup">
+      <div class="popup">
+        <h3>🤖 Terms of Use</h3>
+        <p>Welcome to DeepImagix AI! By using our image generation service, you agree to our Terms of Use. We utilize advanced AI to create unique images based on your prompts. Please note that generated content should not be used for illegal purposes, and we reserve the right to monitor usage to ensure compliance with our policies.</p>
+        <div class="popup-buttons">
+          <button class="agree" onclick="agreeToTerms()"> Agree</button>
+          <button class="disagree" onclick="disagreeToTerms()">Disagree</button>
+        </div>
+      </div>
+    </div>
+    <!-- Add this at the bottom of the body, before your existing script -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
+    authDomain: "deepimagix-web.firebaseapp.com",
+    projectId: "deepimagix-web",
+    storageBucket: "deepimagix-web.firebasestorage.app",
+    messagingSenderId: "84052335131",
+    appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
+    measurementId: "G-MNK3EXSCX6"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  
+  // Track user login state globally
+  window.authState = {
+    isLoggedIn: false,
+    user: null
+  };
+
+  // Monitor auth state changes
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.authState.isLoggedIn = true;
+      window.authState.user = user;
+      console.log("User is logged in:", user.email);
+    } else {
+      window.authState.isLoggedIn = false;
+      window.authState.user = null;
+      console.log("User is not logged in");
+    }
+  });
+</script>
+
+<script>
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const display = document.getElementById('selector-display');
+    const options = document.getElementById('selector-options');
+    const hiddenSelect = document.getElementById('model');
+    const currentSelection = display.querySelector('.current-selection');
+    
+    // Initialize with default value
+    hiddenSelect.value = 'cute-creature-generator';
+    
+    // Toggle dropdown
+    display.addEventListener('click', function() {
+      options.classList.toggle('active');
+      display.querySelector('.selector-arrow').style.transform = 
+        options.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+    });
+    
+    // Handle option selection
+    options.querySelectorAll('li').forEach(option => {
+      option.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        const text = this.textContent;
+        
+        // Update display
+        currentSelection.textContent = text;
+        
+        // Update hidden select
+        hiddenSelect.value = value;
+        
+        // Update active state
+        options.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Close dropdown
+        options.classList.remove('active');
+        display.querySelector('.selector-arrow').style.transform = 'rotate(0)';
+        
+        // Trigger change event
+        hiddenSelect.dispatchEvent(new Event('change'));
+      });
+    });
+    
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!display.contains(e.target) && !options.contains(e.target)) {
+        options.classList.remove('active');
+        display.querySelector('.selector-arrow').style.transform = 'rotate(0)';
+      }
+    });
+  });
+  
+  function setTheme(themeName) {  
         if (themeName === 'theme1') {  
             document.body.style.background = 'var(--theme1-bg)';  
             document.querySelector('header').style.background = 'var(--theme1-header-bg)';  
@@ -158,6 +642,154 @@
             });  
         }  
       }  
-    </script>  
-  </body>  
-</html>  
+  
+  let progress = 0;
+  let termsAgreed = false;
+  let progressInterval;
+
+  function showTermsPopup() {
+    // Check if user is logged in first
+    if (!window.authState.isLoggedIn) {
+      showStatus('Please log in to generate images. <a href="DeepImagix-login.html" style="color: white; text-decoration: underline;">Login here</a>', 'error');
+      return;
+    }
+
+    if (termsAgreed) {
+      generateImage();
+    } else {
+      document.getElementById('termsPopup').style.display = 'flex';
+    }
+  }
+
+  function agreeToTerms() {
+    termsAgreed = true;
+    document.getElementById('termsPopup').style.display = 'none';
+    generateImage();
+  }
+
+  function disagreeToTerms() {
+    document.getElementById('termsPopup').style.display = 'none';
+    showStatus('You must agree to the Terms of Use to generate images.', 'error');
+  }
+
+  async function generateImage() {
+    // Double-check authentication status
+    if (!window.authState.isLoggedIn) {
+      showStatus('Session expired. Please log in again to generate images.', 'error');
+      return;
+    }
+
+    const prompt = document.getElementById('prompt').value.trim();
+    const model = document.getElementById('model').value;
+    const generateBtn = document.getElementById('generateBtn');
+    const progressBar = document.getElementById('progressBar');
+
+    if (!prompt) {
+      showStatus('Please enter a prompt!', 'error');
+      return;
+    }
+
+    generateBtn.disabled = true;
+    generateBtn.innerHTML = '<span class="loading"></span> Generating...';
+    showStatus('✨ DeepImagixing...', 'processing');
+    document.getElementById('resultContainer').style.display = 'none';
+    progressBar.style.width = '0%';
+    progress = 0;
+
+    try {
+      // Step 1: Initial request to get task_url
+      const encodedText = encodeURIComponent(prompt);
+      const initialUrl = `https://api.paxsenix.biz.id/ai-image/deepai?text=${encodedText}&style=${model}`;
+
+      const initialResponse = await fetch(initialUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!initialResponse.ok) {
+        throw new Error(`Initial request failed with status ${initialResponse.status}: ${await initialResponse.text()}`);
+      }
+
+      const initialData = await initialResponse.json();
+      if (!initialData.task_url) {
+        throw new Error('An error occured, please try again');
+      }
+
+      const taskUrl = initialData.task_url;
+
+      // Start progress bar animation for 10 seconds
+      progressInterval = setInterval(() => {
+        progress += 10; // Increment by 10% every second
+        if (progress > 90) progress = 90; // Cap at 90% until final response
+        progressBar.style.width = `${progress}%`;
+      }, 1000);
+
+      // Step 2: Poll task_url after 10 seconds
+      setTimeout(async () => {
+        try {
+          const taskResponse = await fetch(taskUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (!taskResponse.ok) {
+            throw new Error(`Task request failed with status ${taskResponse.status}: ${await taskResponse.text()}`);
+          }
+
+          const taskData = await taskResponse.json();
+          const imageUrl = taskData.url; // Assuming the task_url response has a "url" field
+
+          clearInterval(progressInterval);
+          progressBar.style.width = '100%';
+          const img = document.getElementById('generatedImage');
+          img.src = imageUrl;
+          document.getElementById('resultContainer').style.display = 'block';
+          showStatus('Image generated successfully!', 'success');
+          resetUI();
+        } catch (error) {
+          console.error('Task fetch error:', error.message);
+          showStatus(`Error: ${error.message}`, 'error');
+          clearInterval(progressInterval);
+          resetUI();
+        }
+      }, 10000); // 10-second delay
+
+    } catch (error) {
+      console.error('An error occured, please try again');
+      showStatus(`Error: ${error.message}`, 'error');
+      clearInterval(progressInterval);
+      resetUI();
+    }
+  }
+
+  function showStatus(message, type) {
+    const statusDiv = document.getElementById('status');
+    statusDiv.innerHTML = type === 'processing' 
+      ? `<span class="loading"></span> ${message}` 
+      : message;
+    statusDiv.className = `status ${type}`;
+  }
+
+  function resetUI() {
+    const generateBtn = document.getElementById('generateBtn');
+    generateBtn.disabled = false;
+    generateBtn.innerHTML = 'Generate Image';
+    document.getElementById('progressBar').style.width = '0%';
+    progress = 0;
+  }
+
+  function viewFullImage() {
+    const imageUrl = document.getElementById('generatedImage').src;
+    if (!imageUrl || imageUrl === '') {
+      showStatus('No image to view!', 'error');
+      return;
+    }
+    window.open(imageUrl, '_blank');
+  }
+</script>
+  </body>
+</html>
