@@ -237,6 +237,9 @@
           showStatus('Login successful! Redirecting...', 'success');
           setTimeout(() => {
             window.location.href = 'DeepImagix.html';
+    return userCredential.user.getIdToken();
+    // Redirect back to your app with the token
+    window.location.href = `neuraprompt://auth?token=${idToken}`;
           }, 2000);
         } catch (error) {
           showStatus(`Error: ${error.message}`, 'error');
