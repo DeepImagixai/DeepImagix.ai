@@ -236,8 +236,7 @@
           localStorage.setItem('token', token);
           showStatus('Login successful! Redirecting...', 'success');
           setTimeout(() => {
-            window.location.href = 'DeepImagix.html';
-    return userCredential.user.getIdToken();
+           // window.location.href = 'DeepImagix.html';
     // Redirect back to your app with the token
     window.location.href = `neuraprompt://auth?token=${idToken}`;
           }, 2000);
