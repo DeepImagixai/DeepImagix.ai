@@ -234,9 +234,9 @@
           const token = await user.getIdToken();
 
           localStorage.setItem('token', token);
-          showStatus('Login successful! Redirecting...', 'success');
+          showStatus('Login successful! Redirecting to app...', 'success');
           setTimeout(() => {
-           // window.location.href = 'DeepImagix.html';
+          window.location.href = `neuraprompt://auth?token=${idToken}`;
     // Redirect back to your app with the token
     window.location.href = `neuraprompt://auth?token=${idToken}`;
           }, 2000);
