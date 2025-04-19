@@ -5,15 +5,206 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeepImagix AI - Generate Image</title>
 <style>
-      :root {
-        --primary: #8b5cf6;
-        --secondary: #c4b5fd;
-        --dark: #1f2937;
-        --light: #f9fafb;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        
+   :root {
+      --primary: #8b5cf6;
+      --dark-bg: #0f0f1c;
+      --light-glow: rgba(139, 92, 246, 0.3);
+      --white: #f9fafb;
+      --text-light: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Urbanist', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #14142b, #0f0f1c 70%);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px 20px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 999;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseText 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseText {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #ddd;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 2px solid #2d2d4f;
+      background-color: rgba(15, 15, 28, 0.8);
+      color: #fff;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--light-glow);
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: 5px;
+    }
+
+    .forgot a {
+      font-size: 13px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      border: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px #8b5cf6, 0 0 25px #ec4899aa;
+    }
+
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+
+    .divider {
+      margin: 15px 0;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .status.success {
+      color: #10b981;
+      background-color: #064e3b;
+    }
+
+    .status.error {
+      color: #ef4444;
+      background-color: #450a0a;
+    }
+
+    .signup-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .signup-link a {
+      color: #8b5cf6;
+      text-decoration: none;
+    }
         /* Theme 1 (Dark Blue) */  
         --theme1-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);  
         --theme1-header-bg: rgba(255, 255, 255, 0.95);  
@@ -31,63 +222,7 @@
         padding: 0;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
-      body {
-        background: var(--theme1-bg);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 80px 20px 20px;
-        transition: background 0.5s ease; /* Smooth transition for theme changes */  
-      }
-      header {  
-        background: var(--theme1-header-bg); /* Default to Dark Blue */  
-        padding: 20px;  
-        position: fixed;  
-        top: 0;  
-        left: 0;  
-        right: 0;  
-        z-index: 1000;  
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
-        display: flex;  
-        justify-content: space-between;  
-        align-items: center;  
-        transition: background 0.5s ease, color 0.5s ease;  
-      }  
-      header h1 {  
-        color: var(--primary);  
-        font-size: 24px;  
-        animation: fadeIn 1s ease-in-out; /* Fade-in animation */  
-      }  
-      nav ul {  
-        list-style: none;  
-        display: flex;  
-        gap: 20px;  
-      }  
-      nav a {  
-        text-decoration: none;  
-        color: var(--theme1-text); /* Default to Dark Blue */  
-        font-weight: 500;  
-        transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */  
-      }  
-      nav a:hover {  
-        color: var(--primary);  
-        transform: translateY(-2px); /* Slight lift on hover */  
-      }  
-      .container {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-width: 600px;
-        padding: 40px;
-        text-align: center;
-      }
-      h2 {
-        color: var(--primary);
-        margin-bottom: 15px;
-        font-size: 28px;
-      }
+      
       .tagline {
         color: var(--dark);
         margin-bottom: 25px;
@@ -437,7 +572,6 @@
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="DeepImagix.html">Try it</a></li>
         </ul>
       </nav>
     </header>

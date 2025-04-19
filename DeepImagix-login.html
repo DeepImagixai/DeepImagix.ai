@@ -4,161 +4,213 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>DeepImagix AI - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap" rel="stylesheet">
 <style>
-      :root {
-        --primary: #8b5cf6;
-        --secondary: #c4b5fd;
-        --dark: #1f2937;
-        --light: #f9fafb;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
+    :root {
+      --primary: #8b5cf6;
+      --dark-bg: #0f0f1c;
+      --light-glow: rgba(139, 92, 246, 0.3);
+      --white: #f9fafb;
+      --text-light: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Urbanist', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #14142b, #0f0f1c 70%);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px 20px;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 999;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseText 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseText {
+      0%, 100% {
+        opacity: 1;
       }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-      body {
-        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 80px 20px 20px;
-      }
-      header {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 20px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      header h1 {
-        color: var(--primary);
-        font-size: 24px;
-      }
-      nav ul {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-      }
-      nav a {
-        text-decoration: none;
-        color: var(--dark);
-        font-weight: 500;
-        transition: color 0.3s ease;
-      }
-      nav a:hover {
-        color: var(--primary);
-      }
-      .container {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-width: 400px;
-        padding: 40px;
-        text-align: center;
-      }
-      h2 {
-        color: var(--primary);
-        margin-bottom: 15px;
-        font-size: 28px;
-      }
-      .tagline {
-        color: var(--dark);
-        margin-bottom: 25px;
+      50% {
         opacity: 0.7;
       }
-      .input-group {
-        margin-bottom: 20px;
-        text-align: left;
-      }
-      label {
-        display: block;
-        color: var(--dark);
-        font-weight: 500;
-        margin-bottom: 5px;
-      }
-      input {
-        width: 100%;
-        padding: 12px 20px;
-        border: 2px solid #e5e7eb;
-        border-radius: 25px;
-        font-size: 15px;
-        transition: all 0.3s ease;
-      }
-      input:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
-      }
-      button {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 25px;
-        border-radius: 25px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 100%;
-      }
-      button:hover:not(:disabled) {
-        background: #7c3aed;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
-      }
-      button:disabled {
-        background: #9ca3af;
-        cursor: not-allowed;
-      }
-      .status {
-        padding: 12px;
-        border-radius: 8px;
-        margin-top: 15px;
-        font-weight: 500;
-        font-size: 14px;
-        display: none;
-      }
-      .status.success {
-        background: #ecfdf5;
-        color: var(--success);
-        display: block;
-      }
-      .status.error {
-        background: #fef2f2;
-        color: var(--danger);
-        display: block;
-      }
-      .signup-link {
-        margin-top: 20px;
-        color: var(--dark);
-        font-size: 14px;
-      }
-      .signup-link a {
-        color: var(--primary);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-      }
-      .signup-link a:hover {
-        color: #7c3aed;
-      }
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      max-width: 400px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #ddd;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 2px solid #2d2d4f;
+      background-color: rgba(15, 15, 28, 0.8);
+      color: #fff;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--light-glow);
+    }
+
+    .forgot {
+      text-align: right;
+      margin-top: 5px;
+    }
+
+    .forgot a {
+      font-size: 13px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      border: none;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: scale(1.03);
+      box-shadow: 0 0 10px #8b5cf6, 0 0 25px #ec4899aa;
+    }
+
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+
+    .divider {
+      margin: 15px 0;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .status.success {
+      color: #10b981;
+      background-color: #064e3b;
+    }
+
+    .status.error {
+      color: #ef4444;
+      background-color: #450a0a;
+    }
+
+    .signup-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #bbb;
+    }
+
+    .signup-link a {
+      color: #8b5cf6;
+      text-decoration: none;
+    }
 </style>
   </head>
   <body>
     <header>
-      <h1>✨ DeepImagix AI</h1>
+      <h1>DeepImagix AI</h1>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -169,132 +221,127 @@
 
     <div class="container">
       <h2>Login</h2>
-      <p class="tagline">Access your account to create magic</p>
+      <p class="tagline">Access your creative AI universe</p>
 
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter your email" required />
+          <input type="email" id="email" placeholder="you@example.com" required />
         </div>
 
         <div class="input-group">
           <label for="password">Password</label>
           <input type="password" id="password" placeholder="Enter your password" required />
-          <div style="margin-top: 5px; text-align: right;">
-            <a href="#" onclick="handleForgotPassword()" style="font-size: 13px; color: var(--primary); text-decoration: none;">Forgot Password?</a>
+          <div class="forgot">
+            <a href="#" onclick="handleForgotPassword()">Forgot password?</a>
           </div>
         </div>
 
         <button type="submit">Login</button>
       </form>
 
-      <div style="margin: 15px 0; font-size: 14px; color: #666;">or</div>
-
-      <button onclick="handleGoogleLogin()" style="background: white; color: var(--dark); border: 2px solid #ddd;">
-        Sign in with Google
-      </button>
+      <div class="divider">or</div>
+      <button onclick="handleGoogleLogin()">Sign in with Google</button>
 
       <div id="status" class="status"></div>
 
       <div class="signup-link">
-        Don’t have an account? <a href="DeepImagix-sign.html">Sign up here</a>
+        New here? <a href="DeepImagix-sign.html">Create an account</a>
       </div>
     </div>
 
 <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-      import {
-        getAuth,
-        signInWithEmailAndPassword,
-        sendPasswordResetEmail,
-        signInWithPopup,
-        GoogleAuthProvider
-      } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      sendPasswordResetEmail,
+      signInWithPopup,
+      GoogleAuthProvider
+    } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
-        authDomain: "deepimagix-web.firebaseapp.com",
-        projectId: "deepimagix-web",
-        storageBucket: "deepimagix-web.appspot.com",
-        messagingSenderId: "84052335131",
-        appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
-        measurementId: "G-MNK3EXSCX6"
-      };
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
+      authDomain: "deepimagix-web.firebaseapp.com",
+      projectId: "deepimagix-web",
+      storageBucket: "deepimagix-web.appspot.com",
+      messagingSenderId: "84052335131",
+      appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
+      measurementId: "G-MNK3EXSCX6"
+    };
 
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const provider = new GoogleAuthProvider();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-      function showStatus(message, type) {
-        const statusDiv = document.getElementById("status");
-        statusDiv.textContent = message;
-        statusDiv.className = `status ${type}`;
-      }
+    function showStatus(message, type) {
+      const statusDiv = document.getElementById("status");
+      statusDiv.textContent = message;
+      statusDiv.className = `status ${type}`;
+      statusDiv.style.display = "block";
+    }
 
-      window.handleLogin = async function (event) {
-        event.preventDefault();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const loginBtn = document.querySelector("#loginForm button");
+    window.handleLogin = async function (event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const btn = document.querySelector("#loginForm button");
+      btn.disabled = true;
+      btn.textContent = "Logging in...";
 
-        loginBtn.disabled = true;
-        loginBtn.textContent = "Logging In...";
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
 
-        try {
-          const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          const user = userCredential.user;
-
-          if (!user.emailVerified) {
-            showStatus("Please verify your email before logging in.", "error");
-            loginBtn.disabled = false;
-            loginBtn.textContent = "Login";
-            return;
-          }
-
-          const token = await user.getIdToken();
-          localStorage.setItem("token", token);
-
-          showStatus("Login successful! Redirecting...", "success");
-          setTimeout(() => {
-            window.location.href = "DeepImagix.html";
-          }, 2000);
-        } catch (error) {
-          showStatus(`Error: ${error.message}`, "error");
-          loginBtn.disabled = false;
-          loginBtn.textContent = "Login";
-        }
-      };
-
-      window.handleForgotPassword = async function () {
-        const email = document.getElementById("email").value.trim();
-        if (!email) {
-          showStatus("Please enter your email to reset password.", "error");
+        if (!user.emailVerified) {
+          showStatus("Please verify your email before logging in.", "error");
+          btn.disabled = false;
+          btn.textContent = "Login";
           return;
         }
 
-        try {
-          await sendPasswordResetEmail(auth, email);
-          showStatus("Password reset email sent. Check your inbox.", "success");
-        } catch (error) {
-          showStatus(`Error: ${error.message}`, "error");
-        }
-      };
+        const token = await user.getIdToken();
+        localStorage.setItem("token", token);
+        showStatus("Login successful! Redirecting...", "success");
+        setTimeout(() => {
+          window.location.href = "DeepImagix.html";
+        }, 2000);
+      } catch (error) {
+        showStatus(error.message, "error");
+        btn.disabled = false;
+        btn.textContent = "Login";
+      }
+    };
 
-      window.handleGoogleLogin = async function () {
-        try {
-          const result = await signInWithPopup(auth, provider);
-          const user = result.user;
-          const token = await user.getIdToken();
+    window.handleForgotPassword = async function () {
+      const email = document.getElementById("email").value.trim();
+      if (!email) {
+        showStatus("Please enter your email first.", "error");
+        return;
+      }
 
-          localStorage.setItem("token", token);
-          showStatus("Login successful! Redirecting...", "success");
-          setTimeout(() => {
-            window.location.href = "DeepImagix.html";
-          }, 2000);
-        } catch (error) {
-          showStatus(`Google login failed: ${error.message}`, "error");
-        }
-      };
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showStatus("Reset link sent! Check your inbox.", "success");
+      } catch (error) {
+        showStatus(error.message, "error");
+      }
+    };
+
+    window.handleGoogleLogin = async function () {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const token = await user.getIdToken();
+        localStorage.setItem("token", token);
+        showStatus("Login successful! Redirecting...", "success");
+        setTimeout(() => {
+          window.location.href = "DeepImagix.html";
+        }, 2000);
+      } catch (error) {
+        showStatus(error.message, "error");
+      }
+    };
 </script>
   </body>
 </html>
