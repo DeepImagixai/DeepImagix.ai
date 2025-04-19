@@ -1,274 +1,252 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DeepImagix AI - Sign Up</title>
 <style>
-      :root {
-        --primary: #8b5cf6;
-        --secondary: #c4b5fd;
-        --dark: #1f2937;
-        --light: #f9fafb;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
-      body {
-        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 80px 20px 20px;
-      }
-      header {
-        background: rgba(255, 255, 255, 0.95);
-        padding: 20px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      header h1 {
-        color: var(--primary);
-        font-size: 24px;
-      }
-      nav ul {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-      }
-      nav a {
-        text-decoration: none;
-        color: var(--dark);
-        font-weight: 500;
-        transition: color 0.3s ease;
-      }
-      nav a:hover {
-        color: var(--primary);
-      }
-      .container {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        max-width: 400px; /* Smaller width for sign-up form */
-        padding: 40px;
-        text-align: center;
-      }
-      h2 {
-        color: var(--primary);
-        margin-bottom: 15px;
-        font-size: 28px;
-      }
-      .tagline {
-        color: var(--dark);
-        margin-bottom: 25px;
-        opacity: 0.7;
-      }
-      .input-group {
-        margin-bottom: 20px;
-        text-align: left;
-      }
-      label {
-        display: block;
-        color: var(--dark);
-        font-weight: 500;
-        margin-bottom: 5px;
-      }
-      input {
-        width: 100%;
-        padding: 12px 20px;
-        border: 2px solid #e5e7eb;
-        border-radius: 25px;
-        font-size: 15px;
-        transition: all 0.3s ease;
-      }
-      input:focus {
-        outline: none;
-        border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
-      }
-      button {
-        background: var(--primary);
-        color: white;
-        border: none;
-        padding: 12px 25px;
-        border-radius: 25px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 100%;
-      }
-      button:hover:not(:disabled) {
-        background: #7c3aed;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
-      }
-      button:disabled {
-        background: #9ca3af;
-        cursor: not-allowed;
-      }
-      .status {
-        padding: 12px;
-        border-radius: 8px;
-        margin-top: 15px;
-        font-weight: 500;
-        font-size: 14px;
-        display: none;
-      }
-      .status.success {
-        background: #ecfdf5;
-        color: var(--success);
-        display: block;
-      }
-      .status.error {
-        background: #fef2f2;
-        color: var(--danger);
-        display: block;
-      }
-      .login-link {
-        margin-top: 20px;
-        color: var(--dark);
-        font-size: 14px;
-      }
-      .login-link a {
-        color: var(--primary);
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-      }
-      .login-link a:hover {
-        color: #7c3aed;
-      }
+    :root {
+      --primary: #8b5cf6;
+      --primary-dark: #7c3aed;
+      --glass-bg: rgba(0, 0, 0, 0.6);
+      --text-light: #d1d5db;
+      --accent-gradient: linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%);
+    }
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: var(--text-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #0f172a;
+      padding: 15px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    nav a {
+      color: var(--text-light);
+      margin-left: 20px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: var(--primary);
+    }
+    .container {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    h2 {
+      font-size: 28px;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .tagline {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 14px;
+      color: #9ca3af;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #cbd5e1;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: white;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    .remember-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+      gap: 10px;
+    }
+    .show-pass {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .show-pass input {
+      padding-right: 40px;
+    }
+    .toggle-visibility {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #9ca3af;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent-gradient);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+    }
+    .login-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .login-link a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    #status {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
 </style>
   </head>
   <body>
     <header>
-      <h1>✨ DeepImagix AI</h1>
+      <h1>DeepImagix AI</h1>
       <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="DeepImagix-login.html">Login</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="DeepImagix-login.html">Login</a>
       </nav>
     </header>
-
     <div class="container">
       <h2>Sign Up</h2>
       <p class="tagline">Join us to create magical visuals</p>
-
       <form id="signupForm" onsubmit="handleSignup(event)">
         <div class="input-group">
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Enter your username" required>
+          <input type="text" id="username" required>
         </div>
-
         <div class="input-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+          <input type="email" id="email" required>
         </div>
-
-        <div class="input-group">
+        <div class="input-group show-pass">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          <input type="password" id="password" required>
+          <span class="toggle-visibility" onclick="toggleVisibility('password')">Show</span>
         </div>
-
         <div class="input-group">
           <label for="confirm-password">Confirm Password</label>
-          <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+          <input type="password" id="confirm-password" required>
         </div>
-
+        <div class="remember-container">
+          <input type="checkbox" id="rememberMe">
+          <label for="rememberMe">Remember me</label>
+        </div>
         <button type="submit">Sign Up</button>
       </form>
-
-      <div id="status" class="status"></div>
-
+      <div id="status"></div>
       <div class="login-link">
         Already have an account? <a href="DeepImagix-login.html">Login here</a>
       </div>
-    </div>
+</div>  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-<script type="module">
-      // Import Firebase SDKs
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-      import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-      import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
+      authDomain: "deepimagix-web.firebaseapp.com",
+      projectId: "deepimagix-web",
+      storageBucket: "deepimagix-web.firebasestorage.app",
+      messagingSenderId: "84052335131",
+      appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
+      measurementId: "G-MNK3EXSCX6"
+    };
 
-      // Your Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
-        authDomain: "deepimagix-web.firebaseapp.com",
-        projectId: "deepimagix-web",
-        storageBucket: "deepimagix-web.firebasestorage.app",
-        messagingSenderId: "84052335131",
-        appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
-        measurementId: "G-MNK3EXSCX6"
-      };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app);
+    window.handleSignup = async function(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const remember = document.getElementById('rememberMe').checked;
+      const status = document.getElementById('status');
 
-      function showStatus(message, type) {
-        const statusDiv = document.getElementById('status');
-        statusDiv.textContent = message;
-        statusDiv.className = `status ${type}`;
+      if (password !== confirmPassword) {
+        status.textContent = 'Passwords do not match!';
+        status.style.color = 'red';
+        return;
       }
 
-      window.handleSignup = async function(event) {
-        event.preventDefault();
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(userCredential.user);
+        await setDoc(doc(db, 'users', userCredential.user.uid), {
+          username,
+          email,
+          createdAt: new Date().toISOString()
+        });
 
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
-        const signupBtn = document.querySelector('#signupForm button');
+        if (remember) localStorage.setItem('userEmail', email);
+        status.style.color = 'lime';
+        status.textContent = 'Verification email sent! Please check your inbox.';
+        setTimeout(() => window.location.href = 'DeepImagix-login.html', 3000);
+      } catch (error) {
+        status.textContent = error.message;
+        status.style.color = 'red';
+      }
+    };
 
-        if (password !== confirmPassword) {
-          showStatus('Passwords do not match!', 'error');
-          return;
-        }
-
-        signupBtn.disabled = true;
-        signupBtn.textContent = 'Signing Up...';
-
-        try {
-          // Create user with Firebase Authentication
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          const user = userCredential.user;
-
-          // Store additional user data in Firestore
-          await setDoc(doc(db, 'users', user.uid), {
-            username: username,
-            email: email,
-            createdAt: new Date().toISOString()
-          });
-
-          showStatus('Sign up successful! Redirecting to login...', 'success');
-          setTimeout(() => {
-            window.location.href = 'DeepImagix-login.html';
-          }, 2000);
-        } catch (error) {
-          showStatus(`Error: ${error.message}`, 'error');
-          signupBtn.disabled = false;
-          signupBtn.textContent = 'Sign Up';
-        }
-      };
-</script>
-  </body>
+    window.toggleVisibility = function(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+</script></body>
 </html>

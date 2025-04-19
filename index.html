@@ -1,340 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DeepImagix AI - Features</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <style>
-        :root {
-            --primary: #8b5cf6;
-            --light: #f9fafb;
-            --dark-bg: #1e1b4b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: var(--dark-bg);
-            color: var(--light);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        /* Navigation Header */
-        .nav-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--dark-bg);
-            padding: 10px 20px;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-header h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
-        .nav-header a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1rem;
-        }
-
-        /* Main Content */
-        .main-content {
-            padding-top: 60px; /* Space for fixed header */
-            text-align: center;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, #00f, #8b5cf6); /* Gradient text */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .feature-list {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .feature-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-item:hover {
-            transform: scale(1.02);
-        }
-
-        .feature-item h3 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feature-item h3 .number {
-            background: var(--primary);
-            color: var(--dark-bg);
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 1.2rem;
-        }
-
-        .feature-item ol {
-            padding-left: 20px;
-        }
-
-        .feature-item li {
-            margin: 5px 0;
-            font-size: 1rem;
-        }
-
-        .feature-item li .step-number {
-            background: var(--primary);
-            color: var(--dark-bg);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 10px;
-            font-size: 0.9rem;
-        }
-
-        .signup-btn {
-            display: block;
-            text-align: center;
-            background: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            margin: 20px auto;
-            max-width: 200px;
-            transition: background 0.3s ease;
-        }
-
-        .signup-btn:hover {
-            background: #7c3aed;
-            color: white;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 576px) {
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .section-header p {
-                font-size: 1rem;
-            }
-
-            .feature-item h3 {
-                font-size: 1.3rem;
-            }
-
-            .feature-item li {
-                font-size: 0.9rem;
-            }
-
-            .nav-header h1 {
-                font-size: 1.2rem;
-            }
-        }
+    :root {
+      --primary: #6366f1;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f1f5f9;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar {
+      background-color: var(--bg);
+      border-bottom: 1px solid #334155;
+    }
+    .navbar-brand {
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .features-section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .features-section h2 {
+      color: var(--primary);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .features-section p {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+    }
+    .feature-card {
+      background-color: var(--card-bg);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+    .feature-card h3 {
+      color: var(--primary);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card ol {
+      padding-left: 1.2rem;
+    }
+    .feature-card li::marker {
+      color: var(--primary);
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
 </style>
   </head>
   <body>
-    <!-- Navigation Header -->
-    <div class="nav-header">
-      <h1>DeepImagix AI</h1>
-      <a href="DeepImagix-sign.html">Sign Up</a>
-    </div>
-
-    <!-- Main Content -->
-    <div id="app" class="main-content">
-      <div class="section-header">
-        <h2>Features</h2>
-        <p>Transform your creativity with these powerful AI tools</p>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">DeepImagix AI</a>
+        <a class="btn btn-outline-light" href="DeepImagix-sign.html">Sign Up</a>
       </div>
-      <div class="feature-list">
-        <div v-for="(feature, index) in features" :key="index" class="feature-item">
-          <h3>
-            <span class="number">{{ `0${index + 1}` }}</span>
-            {{ feature.title }}
-          </h3>
+    </nav>
+
+    <section class="features-section">
+      <h2>Features</h2>
+      <p>Transform your creativity with these powerful AI tools</p>
+
+      <div class="container">
+        <div class="feature-card">
+          <h3>01 Image Generation</h3>
           <ol>
-            <li v-for="(step, stepIndex) in feature.steps" :key="stepIndex">
-              <span class="step-number">{{ stepIndex + 1 }}</span>
-              {{ step }}
-            </li>
+            <li>Enter your prompt</li>
+            <li>Select a model (e.g., Stable Diffusion XL)</li>
+            <li>Generate and download your image</li>
+          </ol>
+        </div>
+        <div class="feature-card">
+          <h3>02 Mobile Access</h3>
+          <ol>
+            <li>Download the Android app</li>
+            <li>Generate images on-the-go</li>
+            <li>Use mobile-only filters</li>
+          </ol>
+        </div>
+        <div class="feature-card">
+          <h3>03 Premium Models</h3>
+          <ol>
+            <li>Upgrade to Premium</li>
+            <li>Access Ultra HD Realism</li>
+            <li>Unlock Anime Fusion Pro</li>
           </ol>
         </div>
       </div>
+    </section>
 
-      <!-- How It Works Section -->
-      <div class="section-header">
-        <h2>How It Works</h2>
-        <p>Follow these steps to generate stunning AI images</p>
-      </div>
-      <div class="feature-list">
-        <div v-for="(step, index) in howItWorks" :key="index" class="feature-item">
-          <h3>
-            <span class="number">{{ `0${index + 1}` }}</span>
-            {{ step.title }}
-          </h3>
+    <section class="features-section">
+      <h2>How It Works</h2>
+      <p>Follow these steps to generate stunning AI images</p>
+
+      <div class="container">
+        <div class="feature-card">
+          <h3>01 Sign Up</h3>
           <ol>
-            <li v-for="(subStep, subIndex) in step.steps" :key="subIndex">
-              <span class="step-number">{{ subIndex + 1 }}</span>
-              {{ subStep }}
-            </li>
+            <li>Create an account</li>
+            <li>Verify your email</li>
+            <li>Start generating images</li>
+          </ol>
+        </div>
+        <div class="feature-card">
+          <h3>02 Generate Images</h3>
+          <ol>
+            <li>Enter a prompt</li>
+            <li>Choose a model</li>
+            <li>Click Generate</li>
+          </ol>
+        </div>
+        <div class="feature-card">
+          <h3>03 Download & Share</h3>
+          <ol>
+            <li>Preview your image</li>
+            <li>Download in high quality</li>
+            <li>Share with friends</li>
           </ol>
         </div>
       </div>
+    </section>
 
-      <!-- Username Display -->
-      <div v-if="username" class="text-center mt-4">
-        <p>Welcome, {{ username }}!</p>
-      </div>
+    <div class="footer">
+      &copy; 2025 DeepImagix AI. All rights reserved.
     </div>
 
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Firebase SDKs -->
-<script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDNmdMRjTSOszMo9RxYeykDmTcFqmj-DUg",
-            authDomain: "deepimagix-web.firebaseapp.com",
-            projectId: "deepimagix-web",
-            storageBucket: "deepimagix-web.appspot.com",
-            messagingSenderId: "84052335131",
-            appId: "1:84052335131:web:ff0535a4da12b85aadf6be",
-            measurementId: "G-MNK3EXSCX6"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Vue.js App
-        const { createApp } = Vue;
-        createApp({
-            data() {
-                return {
-                    username: null,
-                    features: [
-                        {
-                            title: "Image Generation",
-                            steps: [
-                                "Enter your prompt",
-                                "Select a model (e.g., Stable Diffusion XL)",
-                                "Generate and download your image"
-                            ]
-                        },
-                        {
-                            title: "Mobile Access",
-                            steps: [
-                                "Download the Android app",
-                                "Generate images on-the-go",
-                                "Use mobile-only filters"
-                            ]
-                        },
-                        {
-                            title: "Premium Models",
-                            steps: [
-                                "Upgrade to Premium",
-                                "Access Ultra HD Realism",
-                                "Unlock Anime Fusion Pro"
-                            ]
-                        }
-                    ],
-                    howItWorks: [
-                        {
-                            title: "Sign Up",
-                            steps: [
-                                "Create an account",
-                                "Verify your email",
-                                "Start generating images"
-                            ]
-                        },
-                        {
-                            title: "Generate Images",
-                            steps: [
-                                "Enter a prompt",
-                                "Choose a model",
-                                "Click Generate"
-                            ]
-                        },
-                        {
-                            title: "Download & Share",
-                            steps: [
-                                "Preview your image",
-                                "Download in high quality",
-                                "Share with friends"
-                            ]
-                        }
-                    ]
-                };
-            },
-            methods: {
-                async fetchUsername() {
-                    const user = auth.currentUser;
-                    if (user) {
-                        try {
-                            const userDoc = await getDoc(doc(db, 'users', user.uid));
-                            if (userDoc.exists()) {
-                                this.username = userDoc.data().username;
-                            }
-                        } catch (error) {
-                            console.error("Error fetching user data:", error);
-                        }
-                    }
-                }
-            },
-            mounted() {
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        this.fetchUsername();
-                    }
-                });
-            }
-        }).mount('#app');
-</script>
   </body>
 </html>
+
